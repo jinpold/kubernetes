@@ -29,7 +29,7 @@ function Header() {
   };
 
   const handleCloseNavMenu = (event: any) => {
-    alert('클릭한 메뉴 : '+event.target.value)
+    const lis = []
   };
 
   const handleCloseUserMenu = () => {
