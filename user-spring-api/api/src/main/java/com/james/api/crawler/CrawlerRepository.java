@@ -1,5 +1,5 @@
 package com.james.api.crawler;
-import com.james.api.common.AbstractRepository;
+import com.james.api.common.repository.AbstractRepository;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;

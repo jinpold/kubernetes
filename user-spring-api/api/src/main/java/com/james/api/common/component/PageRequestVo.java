@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 @Getter
 @Builder
 @AllArgsConstructor
+
 public class PageRequestVo {
     private int page;
     private int size;
