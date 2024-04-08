@@ -1,46 +1,58 @@
 package com.james.api.article.service;
 import com.james.api.article.model.ArticleDto;
 import com.james.api.article.repository.ArticleRepository;
+import com.james.api.common.component.Messenger;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class ArticleServiceImpl implements ArticleService {
-    private static ArticleRepository repo;
+    private static ArticleRepository repository;
 
     @Override
-    public ArticleDto save(ArticleDto t) {
-        return entityToDto(Optional.of(repo.save(dtoToEntity(t))));
+    public Messenger save(ArticleDto t) {
+        entityToDto((repository.save(dtoToEntity(t))));
+        return new Messenger();
     }
 
-
     @Override
-    public void deleteById(Long id) {
-        repo.deleteById(id);
+    public Messenger deleteById(Long id) {
+        repository.deleteById(id);
+        return new Messenger();
     }
 
-
     @Override
-    public List<ArticleDto> findAll() throws SQLException {
+    public Messenger modify(ArticleDto articleDto) {
         return null;
     }
 
     @Override
+    public List<ArticleDto> findAll() throws SQLException {
+        repository.findAll();
+        return new ArrayList<>();
+    }
+
+    @Override
     public Optional<ArticleDto> findById(long id) {
-        return Optional.of(entityToDto(repo.findById(id)));
+        return null;
     }
 
     @Override
     public long count() {
-        return repo.count();
+        return repository.count();
     }
+
     @Override
     public boolean existsById(long id) {
-        return repo.existsById(id);
+        return repository.existsById(id);
     }
+
+
+
+
 }
+

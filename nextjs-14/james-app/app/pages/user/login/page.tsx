@@ -2,7 +2,6 @@
 import { useRouter } from "next/navigation"
 import { useState } from "react";
 import axios from 'axios'
-import { API } from "@/app/components/common/enums/API";
 import AxiosConfig from "@/app/components/common/configs/axios-config";
 import { PG } from "@/app/components/common/enums/PG";
 
@@ -18,7 +17,7 @@ const LoginPage = () => {
 
   const handleSubmit = () => {
     alert("request가 가져가는 입력 ID" + username)
-    const url = `${API.SERVER}/users/login`
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/users/login`
     const data = { username, password } // <- (원본 un : un, pw : pw ) Key & value가 같으면 생략가능 -> username : username ~
     const config = AxiosConfig()
 
@@ -27,7 +26,7 @@ const LoginPage = () => {
         const message = res.data.message   // JSON.stringify = toString() , res.data = responsebody
         alert((message))
         if (message === 'SUCCESS') {
-          router.push(`${PG.BOARD}/articles`)
+          router.push(`${PG.ARTICLE}`)
         }
         else if (message === 'FAIL') {
           alert('FAIL');
@@ -37,6 +36,7 @@ const LoginPage = () => {
         }
         else {
           alert('지정한 값 없음');
+          router.push(`${PG.ARTICLE}`)
         }
       })
   }

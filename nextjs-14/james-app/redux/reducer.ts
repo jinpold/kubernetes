@@ -46,8 +46,8 @@ const persistedCountReducer = persistReducer(countPersistConfig, countReducer);
 const persistedArticleReducer = persistReducer(articlePersistConfig, articleReducer);
 const persistedUserReducer = persistReducer(userPersistConfig, userReducer)
 
-export const rootReducer = combineReducers({  // 리듀서는 키(상태)를 모아두는 것
-  count: persistedCountReducer,               // count, article
+export const rootReducer = combineReducers({  // combineReducers = 슬라이스를 합친다 -> 리듀서는 키(상태)를 모아두는 것 
+  count: persistedCountReducer,               // count, article, user  
   article: persistedArticleReducer,
   user: persistedUserReducer
 });

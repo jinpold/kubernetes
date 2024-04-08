@@ -1,12 +1,12 @@
 package com.james.api.common.service;
 import com.james.api.user.model.User;
-import com.james.api.common.component.MessengerVo;
+import com.james.api.common.component.Messenger;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
 public abstract class AbstractService <T> {
-    public abstract MessengerVo save (T t);
+    public abstract Messenger save (T t);
 
     public abstract List<T> findAll() throws SQLException;
 
@@ -23,5 +23,5 @@ public abstract class AbstractService <T> {
     public  abstract  Boolean existsById(long id);
 
 
-    public abstract MessengerVo insertMenuData(User user) throws SQLException;
+    public abstract Messenger insertMenuData(User user) throws SQLException;
 }

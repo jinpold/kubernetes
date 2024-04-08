@@ -1,12 +1,11 @@
 package com.james.api.user.service;
-import com.james.api.article.model.ArticleDto;
-import com.james.api.common.component.PageRequestVo;
+import com.james.api.common.component.Messenger;
 import com.james.api.user.model.User;
 import com.james.api.user.model.UserDto;
 import com.james.api.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,50 +13,56 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository repo;
+    private final UserRepository repository;
+
     @Override
-    public UserDto save(UserDto t) {
-        return entityToDto((repo.save(dtoToEntity(t))));
+    public Messenger save(UserDto t) {
+        entityToDto((repository.save(dtoToEntity(t))));
+        return new Messenger();
     }
 
     @Override
-    public void deleteById(Long id) {
-        repo.deleteById(id);
-
+    public Messenger deleteById(Long id) {
+        repository.deleteById(id);
+        return new Messenger();
     }
+
     @Override
-    public String updatePassword(User user) {
+    public Messenger modify(UserDto user) {
         return null;
     }
 
     @Override
-    public List<?> findUsersByName(String name) {
-        return null;
+    public List<UserDto> findAll() {
+        repository.findAll();
+        return new ArrayList<>();
     }
 
     @Override
-    public List<?> findUsersByJob(String job) {
+    public Optional<UserDto> findById(long id) {
+        // Optional.of(entityToDto(repository.findById(id)));
         return null;
-    }
-
-
-    @Override
-    public List<UserDto> findAll() throws SQLException {
-        return null;
-    }
-
-    @Override
-    public Optional findById(long id) {
-        return repo.findById(id);
     }
     @Override
     public long count() {
-        return repo.count();
+        return repository.count();
+    }
+    @Override
+    public boolean existsById(long id) {
+        return repository.existsById(id);
     }
 
     @Override
-    public boolean existsById(long id) {
-        return repo.existsById(id);
+    public Optional<User> findUsersByName(String name) {
+        return repository.findByUsername(name);
     }
 
+    @Override
+    public List<UserDto> findUsersByJob(String job) {
+        return null;
+    }
+    @Override
+    public Messenger login(UserDto param) {
+        return null;
+    }
 }

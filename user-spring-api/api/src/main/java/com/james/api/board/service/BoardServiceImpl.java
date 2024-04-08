@@ -1,44 +1,50 @@
 package com.james.api.board.service;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import com.james.api.common.component.Messenger;
+import org.springframework.stereotype.Service;
 import com.james.api.board.model.BoardDto;
 import com.james.api.board.repository.BoardRepository;
 
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Optional;
 
-public class BoardServiceImpl implements BoardService {
+import lombok.RequiredArgsConstructor;
+@Service
+@RequiredArgsConstructor
+public class BoardServiceImpl implements BoardService{
 
-    private BoardRepository repo;
+    private final BoardRepository repository;
 
     @Override
-    public BoardDto save(BoardDto t) {
-        return entityToDto(Optional.of(repo.save(dtoToEntity(t))));
+    public Messenger save(BoardDto t) {
+        entityToDto((repository.save(dtoToEntity(t))));
+        return new Messenger();
     }
-
     @Override
-    public void deleteById(Long id) {
-        repo.deleteById(id);
-    }
-
-    @Override
-    public List findAll() throws SQLException {
+    public Messenger deleteById(Long id) {
         return null;
     }
-
     @Override
-    public Optional findById(long id) {
-        return Optional.of(entityToDto(repo.findById(id)));
+    public Messenger modify(BoardDto boardDto) {
+        return null;
     }
-
+    @Override
+    public List<BoardDto> findAll() throws SQLException {
+        repository.findAll();
+        return new ArrayList<>();
+    }
+    @Override
+    public Optional<BoardDto> findById(long id) {
+        // Optional.of(entityToDto(repository.findById(id)));
+        return null;
+    }
     @Override
     public long count() {
-        return repo.count();
+        return repository.count();
     }
-
     @Override
     public boolean existsById(long id) {
-        return repo.existsById(id);
+        return repository.existsById(id);
     }
-
 }
-

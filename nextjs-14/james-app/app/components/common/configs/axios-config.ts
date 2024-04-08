@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { env } from 'process'
 
 export default function AxiosConfig(){
     return {
@@ -12,4 +13,4 @@ export default function AxiosConfig(){
 }
 
 
-export const instance = axios.create({ baseURL: 'http://localhost:8080/api'})
+export const instance = axios.create({ baseURL: process.env.NEXT_PUBLIC_API_URL}) 

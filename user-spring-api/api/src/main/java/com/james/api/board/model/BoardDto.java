@@ -19,8 +19,6 @@ public class BoardDto {
     private String content;
     private String registerDate;
     private List<Article> articles;
-
 //    @Builder.Default // list를 디폴트 값으로 준다.
 //    private List<Article> articles = new ArrayList<>();
-
 }

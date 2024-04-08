@@ -6,6 +6,7 @@ import { getAllArticles } from "@/app/components/article/service/article-slice";
 import { fetchAllArticles } from "@/app/components/article/service/article-service";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box } from "@mui/material";
+import ArticleColumns from "@/app/components/article/module/article-columns";
 
 // import React from "react";
 
@@ -32,21 +33,14 @@ const ArtilcesPage: NextPage = ({data}:any) => {
         dispatch(fetchAllArticles(1))  // dispatch 2번실행 // (fetchAllArticles) 3번실행 (리덕스에 실행)
     }, []) // <- [] 안에 dispatch를 넣었다고 가정하고 dispatch(상태)가 바뀌면 useEffect 다시 실행한다.
     
-    function Rows() {
-        throw new Error("Function not implemented.");
-    }
-
-  function Columns(): readonly import("@mui/x-data-grid").GridColDef<any>[] {
-    throw new Error("Function not implemented.");
-  }
-
+  
     // 하기 리턴은 jsx로 작성해야함.
     return (<> 
         <h2>개인페이지 Article</h2> 
         <Box sx={{ height: 400, width: '100%' }}>
       <DataGrid
         rows={data}
-        columns={Columns()}
+        columns={ArticleColumns()}
         initialState={{
           pagination: {
             paginationModel: {
