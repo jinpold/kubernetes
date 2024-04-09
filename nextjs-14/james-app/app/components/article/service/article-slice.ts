@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initialState } from "./article-init";
-import { fetchAllArticles } from "./article-service";
+import { findAllArticles } from "./article-service";
 
-const articleThunks = [fetchAllArticles]
+const articleThunks = [findAllArticles]
 
 const status = {
     pending: 'pending',
@@ -30,7 +30,7 @@ export const articleSlice = createSlice({   // 슬라이스의 이름 = articles
         const {pending, rejected} = status;
 
         builder                                                 // 빌더인데 하나에만 반응한다 = 자바의 switch case와 유사
-        .addCase(fetchAllArticles.fulfilled, handleFulfilled)   // = fetchAllArticles.fulfilled이면 handleFulfilled를 실행하라
+        .addCase(findAllArticles.fulfilled, handleFulfilled)   // = fetchAllArticles.fulfilled이면 handleFulfilled를 실행하라
     }                                                           // fetchAllArticles = thunk, fulfilled = 성공
 })
 

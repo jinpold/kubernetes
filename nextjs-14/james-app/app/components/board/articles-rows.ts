@@ -2,14 +2,13 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from 'react';
 import AxiosConfig from "../common/configs/axios-config";
-import { API } from "../common/enums/API";
 
 
 
 export default function ArticlesRows(){
     const [articles, setArticles] = useState([]);
     const router = useRouter();
-    const url = `${API.SERVER}/api/articles`
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/articles`
     const config = AxiosConfig();
     useEffect(() => {
         {

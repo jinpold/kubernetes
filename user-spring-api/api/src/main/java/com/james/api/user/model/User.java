@@ -36,7 +36,6 @@ public class User extends BaseEntity {
         this.phone = phone;
         this.job = job;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }

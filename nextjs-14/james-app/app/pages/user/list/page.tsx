@@ -1,7 +1,7 @@
 'use client'
 import UserColumns from "@/app/components/user/module/user-column"
-import { IUsers } from "@/app/components/user/model/user-model"
-import { fetchAllUsers } from "@/app/components/user/service/user-service"
+import { IUsers } from "@/app/components/user/model/user"
+import { findAllUsers } from "@/app/components/user/service/user-service"
 import { getAllUsers } from "@/app/components/user/service/user-slice"
 import { DataGrid } from "@mui/x-data-grid"
 import { NextPage } from "next"
@@ -10,7 +10,7 @@ import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
 
 const UsersPage: NextPage = () => {
-    const [pageSize, setPageSize] = useState(5); // 4-1
+    const [pageSize, setPageSize] = useState(5); 
 
     const dispatch = useDispatch()
     const allUsers: [] = useSelector(getAllUsers)
@@ -27,17 +27,17 @@ const UsersPage: NextPage = () => {
     }
 
     useEffect(()=>{
-        dispatch(fetchAllUsers(1))
+        dispatch(findAllUsers(1))
     },[])
 
     return(<>
     <div style={{ height: 400, width: "100%" }}>
-      <DataGrid // 🔥 4
+      {allUsers && <DataGrid //allUsers 유저스가 있으면 && 뒤의 이벤트를 작동해라
         rows={allUsers}
         columns={UserColumns()}
-        pageSizeOptions={[5, 10, 20]} // 4-1
+        pageSizeOptions={[5, 10, 20]} 
         checkboxSelection
-      />
+      />}
     </div></>)
 }
 

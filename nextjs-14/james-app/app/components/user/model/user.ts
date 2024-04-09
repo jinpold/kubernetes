@@ -5,5 +5,7 @@ export interface IUsers {
     name?: string,
     phone?: string,
     job?: string,
+    regDate?: string;
+    modDate?: string;
     array:[]
 }

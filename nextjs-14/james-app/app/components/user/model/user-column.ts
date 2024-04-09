@@ -1,4 +1,3 @@
-
 export interface UserColumn{
     id?: string;
     username?: string;
@@ -6,4 +5,6 @@ export interface UserColumn{
     name?: string;
     phone?: string;
     job?: string;
+    regDate?: string;
+    modDate?: string;
 }

@@ -17,7 +17,7 @@ import { PG } from '@/app/components/common/enums/PG';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-const pages = ['회원가입', '로그인', '카운터', '게시글 목록', '사용자 목록'];
+const pages = ['회원가입', '로그인', '카운터', , '게시판 목록','게시글 목록', '사용자 목록'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
@@ -42,8 +42,11 @@ function ResponsiveAppBar() {
       case '카운터':
         router.push(`${PG.DEMO}/redux-counter`)
         break;
+      case '게시판 목록':
+        router.push(`${PG.BOARD}/list`)
+        break;
       case '게시글 목록':
-        router.push(`${PG.ARTICLE}`)
+        router.push(`${PG.ARTICLE}/list`)
         break;
       case '사용자 목록':
         router.push(`${PG.USER}/list`)
@@ -64,7 +67,7 @@ function ResponsiveAppBar() {
             variant="h6"
             noWrap
             component="a"
-            href="http://localhost:3000/"
+            href="http://localhost:3000"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -119,7 +122,7 @@ function ResponsiveAppBar() {
             variant="h5"
             noWrap
             component="a"
-            href="http://localhost:3000/"
+            href="http://localhost:3000"
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },

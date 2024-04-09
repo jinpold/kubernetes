@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 import { useSelector, useDispatch } from 'react-redux';
 import { NextPage } from "next";
 import { getAllArticles } from "@/app/components/article/service/article-slice";
-import { fetchAllArticles } from "@/app/components/article/service/article-service";
+import { findAllArticles } from "@/app/components/article/service/article-service";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box } from "@mui/material";
 import ArticleColumns from "@/app/components/article/module/article-columns";
@@ -30,7 +30,7 @@ const ArtilcesPage: NextPage = ({data}:any) => {
     }
  
     useEffect(() => { // 1번실행  -> 즉시실행 함수 
-        dispatch(fetchAllArticles(1))  // dispatch 2번실행 // (fetchAllArticles) 3번실행 (리덕스에 실행)
+        dispatch(findAllArticles(1))  // dispatch 2번실행 // (fetchAllArticles) 3번실행 (리덕스에 실행)
     }, []) // <- [] 안에 dispatch를 넣었다고 가정하고 dispatch(상태)가 바뀌면 useEffect 다시 실행한다.
     
   
@@ -39,7 +39,7 @@ const ArtilcesPage: NextPage = ({data}:any) => {
         <h2>개인페이지 Article</h2> 
         <Box sx={{ height: 400, width: '100%' }}>
       <DataGrid
-        rows={data}
+        rows={allArticles}
         columns={ArticleColumns()}
         initialState={{
           pagination: {
@@ -48,7 +48,7 @@ const ArtilcesPage: NextPage = ({data}:any) => {
             },
           },
         }}
-        pageSizeOptions={[5]}
+        pageSizeOptions={[5, 10, 20]} 
         checkboxSelection
         disableRowSelectionOnClick
       />

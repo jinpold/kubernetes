@@ -19,6 +19,8 @@ public class Article extends BaseEntity {
     private String title;
     private String content;
 
+
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "writer_id")
     private User writer;
@@ -33,5 +35,6 @@ public class Article extends BaseEntity {
         this.title = title;
         this.writer = writer;
         this.content = content;
+
     }
 }

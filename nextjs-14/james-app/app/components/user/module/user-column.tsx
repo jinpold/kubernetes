@@ -15,7 +15,7 @@ export default function UserColumns(): GridColDef[] {
             field: 'id',
             headerName: 'No.',
             renderCell: ({row}:CellType) => <Typography textAlign="center" sx={{fontSize:"1.5rem"}}>{row.id}</Typography>
-            }
+        }
         ,
         {
             flex: 0.04,

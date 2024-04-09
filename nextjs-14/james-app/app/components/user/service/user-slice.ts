@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initialState } from "./user-init";
-import { fetchAllUsers } from "./user-service";
+import { findAllUsers } from "./user-service";
 
-const userThunks = [fetchAllUsers]
+const userThunks = [findAllUsers]
 
 const status = {
     pending: 'pending',
@@ -27,7 +27,7 @@ export const userSlice = createSlice({
     extraReducers:builder =>{
         const {pending, rejected} = status;
 
-        builder.addCase(fetchAllUsers.fulfilled, handleFulfilled)
+        builder.addCase(findAllUsers.fulfilled, handleFulfilled)
     }
 })
 

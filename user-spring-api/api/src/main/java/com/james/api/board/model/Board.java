@@ -22,13 +22,16 @@ public class Board extends BaseEntity {
     @Column(name = "board_type")
     private String boardType;
 
+
     @OneToMany(mappedBy = "board" , fetch = FetchType.LAZY)
     private List<Article> article;
+
 
     @Builder(builderMethodName = "builder")
     public Board(Long id, String boardName, String boardType) {
         this.id = id;
         this.boardName = boardName;
         this.boardType = boardType;
+
     }
 }

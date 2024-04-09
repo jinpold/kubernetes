@@ -1,20 +1,20 @@
 import { GridColDef } from "@mui/x-data-grid";
-import { ArticleColumn } from "../model/article-column";
 import { Typography } from "@mui/material";
+import { BoardColumn } from "../model/board-column";
 import Link from "next/link";
 import { PG } from "../../common/enums/PG";
 
 interface CellType{
-    row : ArticleColumn
+    row : BoardColumn
 }
 
-export default function ArticleColumns(): GridColDef[] {
+export default function BoardColumns(): GridColDef[] {
     return [
         {
             flex: 0.04,
             minWidth: 30,
             sortable: false,
-            field: 'id', // 스프링 필드 이름과 같게
+            field: 'id',
             headerName: 'No.',
             renderCell: ({row}:CellType) => <Typography textAlign="center" sx={{fontSize:"1.5rem"}}>{row.id}</Typography>
             }
@@ -23,25 +23,25 @@ export default function ArticleColumns(): GridColDef[] {
             flex: 0.04,
             minWidth: 30,
             sortable: false,
-            field: 'title',
-            headerName: '제목',
+            field: 'boardName',
+            headerName: '게시판이름',
             renderCell: ({row}:CellType) => <Typography textAlign="center" sx={{fontSize:"1.5rem"}}>
-            <Link href={`${PG.ARTICLE}/detail/${row.id}`} className="underline" >{row.title}</Link>
+            <Link href={`${PG.BOARD}/detail/${row.id}`} className="underline" >{row.boardName}</Link>
             </Typography>
         },
         {
             flex: 0.04,
             minWidth: 30,
             sortable: false,
-            field: 'content',
-            headerName: '내용',
-            renderCell: ({row}:CellType) => <Typography textAlign="center" sx={{fontSize:"1.5rem"}}>{row.content}</Typography>
+            field: 'boardType',
+            headerName: '게시판종류',
+            renderCell: ({row}:CellType) => <Typography textAlign="center" sx={{fontSize:"1.5rem"}}>{row.boardType}</Typography>
         },
         {
             flex: 0.04,
             minWidth: 30,
             sortable: false,
-            field: 'registerDate',
+            field: 'regDate',
             headerName: '작성일자',
             renderCell: ({row}:CellType) => <Typography textAlign="center" sx={{fontSize:"1.5rem"}}>{row.regDate}</Typography>
         },
@@ -49,7 +49,7 @@ export default function ArticleColumns(): GridColDef[] {
             flex: 0.04,
             minWidth: 30,
             sortable: false,
-            field: 'modifyDate',
+            field: 'modDate',
             headerName: '수정일자',
             renderCell: ({row}:CellType) => <Typography textAlign="center" sx={{fontSize:"1.5rem"}}>{row.modDate}</Typography>
         }
