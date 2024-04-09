@@ -15,10 +15,8 @@ import java.util.*;
 public class BoardDto {
 
     private Long id;
-    private String title;
-    private String content;
-    private String registerDate;
-    private List<Article> articles;
+    private String boardName;
+    private String boardType;
 //    @Builder.Default // list를 디폴트 값으로 준다.
 //    private List<Article> articles = new ArrayList<>();
 }

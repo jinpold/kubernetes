@@ -11,35 +11,31 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class ArticleServiceImpl implements ArticleService {
-    private static ArticleRepository repository;
+
+    private final ArticleRepository repository;
 
     @Override
     public Messenger save(ArticleDto t) {
         entityToDto((repository.save(dtoToEntity(t))));
         return new Messenger();
     }
-
     @Override
     public Messenger deleteById(Long id) {
         repository.deleteById(id);
         return new Messenger();
     }
-
     @Override
     public Messenger modify(ArticleDto articleDto) {
         return null;
     }
-
     @Override
     public List<ArticleDto> findAll() throws SQLException {
         return repository.findAll().stream().map(i->entityToDto(i)).toList();
     }
-
     @Override
     public Optional<ArticleDto> findById(long id) {
         return null;
     }
-
     @Override
     public long count() {
         return repository.count();

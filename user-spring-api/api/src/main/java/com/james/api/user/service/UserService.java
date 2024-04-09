@@ -16,11 +16,9 @@ public interface UserService extends CommandService<UserDto>, QueryService<UserD
     List<UserDto> findUsersByName(String name);
     Optional<UserDto> findUserByUsername(String username);
 
-
-
-
     default User dtoToEntity(UserDto dto){
         return User.builder()
+                .id(dto.getId())
                 .username(dto.getUsername())
                 .password(dto.getPassword())
                 .name(dto.getName())
@@ -28,9 +26,9 @@ public interface UserService extends CommandService<UserDto>, QueryService<UserD
                 .job(dto.getJob())
                 .build();
     }
-
     default UserDto entityToDto(User ent) {
         return UserDto.builder()
+                .id(ent.getId())
                 .username(ent.getUsername())
                 .password(ent.getPassword())
                 .name(ent.getName())
@@ -38,7 +36,6 @@ public interface UserService extends CommandService<UserDto>, QueryService<UserD
                 .job(ent.getJob())
                 .build();
     }
-
 }
 
 

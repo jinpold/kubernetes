@@ -12,12 +12,19 @@ public interface BoardService extends CommandService<BoardDto>, QueryService<Boa
     //dto를 엔티티로 바꾸는것 -> 여기서 엔티티는 Article (@Entitiy 선언한 클래스)
     default Board dtoToEntity(BoardDto dto){
 
-        return Board.builder().build();
+        return Board.builder()
+                .id(dto.getId())
+                .boardName(dto.getBoardName())
+                .boardType(dto.getBoardType())
+                .build();
     }
     // 엔티티를 dto로 바꾸는것
-    default BoardDto entityToDto(Board board){
+    default BoardDto entityToDto(Board ent){
 
         return BoardDto.builder()
+                .id(ent.getId())
+                .boardName(ent.getBoardName())
+                .boardType(ent.getBoardType())
                 .build();
     }
 }
