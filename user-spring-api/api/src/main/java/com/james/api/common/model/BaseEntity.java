@@ -15,11 +15,11 @@ import java.time.LocalDateTime;
 public class BaseEntity {
 
     @CreatedDate
-    @Column(name="reg.data", updatable = false)
-    private LocalDateTime regData;
+    @Column(name="reg_date", updatable = false)
+    private LocalDateTime regDate;
 
     @LastModifiedDate
-    @Column(name="mod.data") // updatable = true는 디폴트값이라 생략
-    private LocalDateTime modData;
+    @Column(name="mod_date") // updatable = true는 디폴트값이라 생략
+    private LocalDateTime modDate;
 
 }

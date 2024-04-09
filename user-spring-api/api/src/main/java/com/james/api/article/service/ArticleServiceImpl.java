@@ -32,8 +32,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<ArticleDto> findAll() throws SQLException {
-        repository.findAll();
-        return new ArrayList<>();
+        return repository.findAll().stream().map(i->entityToDto(i)).toList();
     }
 
     @Override
@@ -50,9 +49,5 @@ public class ArticleServiceImpl implements ArticleService {
     public boolean existsById(long id) {
         return repository.existsById(id);
     }
-
-
-
-
 }
 

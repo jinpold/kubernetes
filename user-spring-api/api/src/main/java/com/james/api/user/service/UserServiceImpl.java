@@ -17,25 +17,31 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Messenger save(UserDto t) {
-        entityToDto((repository.save(dtoToEntity(t))));
-        return new Messenger();
+        repository.save(dtoToEntity(t));
+        return Messenger.builder()
+                .message("회원가입 성공"+t.getName())
+                .build();
     }
 
     @Override
     public Messenger deleteById(Long id) {
         repository.deleteById(id);
-        return new Messenger();
+        return existsById(id) ?
+                Messenger.builder()
+                        .message("회원탈퇴 완료")
+                        .build() :
+                Messenger.builder()
+                        .message("회원탈퇴 실패")
+                        .build();
     }
 
     @Override
     public Messenger modify(UserDto user) {
         return null;
     }
-
     @Override
     public List<UserDto> findAll() {
-        repository.findAll();
-        return new ArrayList<>();
+        return repository.findAll().stream().map(i->entityToDto(i)).toList();
     }
 
     @Override
@@ -53,16 +59,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findUsersByName(String name) {
-        return repository.findByUsername(name);
-    }
-
-    @Override
     public List<UserDto> findUsersByJob(String job) {
         return null;
     }
+
+    @Override
+    public List<UserDto> findUsersByName(String name) {
+        return null;
+    }
+
     @Override
     public Messenger login(UserDto param) {
         return null;
+    }
+
+    @Override
+    public Optional<UserDto> findUserByUsername(String username) {
+        User user = repository.findByUsername(username);
+        return Optional.of(entityToDto(user));
     }
 }

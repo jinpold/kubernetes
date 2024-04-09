@@ -7,6 +7,7 @@ import lombok.*;
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Getter
 @ToString(exclude = {"id"})
 @Entity(name="boards")
@@ -21,7 +22,7 @@ public class Board extends BaseEntity {
     @Column(name = "board_type")
     private String boardType;
 
-    @OneToMany(mappedBy = "board")
+    @OneToMany(mappedBy = "board" , fetch = FetchType.LAZY)
     private List<Article> article;
 
     @Builder(builderMethodName = "builder")

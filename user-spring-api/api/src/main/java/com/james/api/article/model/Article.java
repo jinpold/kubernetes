@@ -9,6 +9,7 @@ import lombok.*;
 @Getter
 @ToString(exclude = {"id"})
 @Entity(name = "articles")
+@AllArgsConstructor
 
 public class Article extends BaseEntity {
     @Id

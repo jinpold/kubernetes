@@ -13,12 +13,16 @@ public interface ArticleService extends CommandService<ArticleDto>, QueryService
 
     default Article dtoToEntity(ArticleDto dto) {
 
-        return Article.builder().build();
-
+        return Article.builder()
+                .title(dto.getTitle())
+                .content(dto.getContent())
+                .build();
     }
+    default ArticleDto entityToDto(Article ent) {
 
-    default ArticleDto entityToDto(Article article) {
-
-        return ArticleDto.builder().build();
+        return ArticleDto.builder()
+                .title(ent.getTitle())
+                .content(ent.getContent())
+                .build();
     }
 }

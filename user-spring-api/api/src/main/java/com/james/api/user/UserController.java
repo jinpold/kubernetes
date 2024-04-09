@@ -49,9 +49,10 @@ public class UserController {
     public ResponseEntity<Messenger> login(@RequestBody UserDto param) {
          return ResponseEntity.ok(service.login(param));
     }
-    @GetMapping("/list") //all-users
+    @GetMapping("/list")
     public ResponseEntity<List<UserDto>> findAll() throws SQLException {
-        log.info("입력받은 정보 : {}" );
+        log.info("입력받은 정보 : {}");
+        System.out.println(service.findAll());
         return ResponseEntity.ok(service.findAll());
     }
     @GetMapping("/detail")
@@ -83,15 +84,13 @@ public class UserController {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<Optional<User>> findUsersByName(@RequestBody UserDto param) {
+    public ResponseEntity<Optional<UserDto>> findUsersByName(@RequestBody UserDto param) {
         //log.info("입력받은 정보 : {}", name );
-        return ResponseEntity.ok(service.findUsersByName(param.getName()));
+        return ResponseEntity.ok(service.findUserByUsername(param.getName()));
     }
     @GetMapping("/findUserByJob")
     public ResponseEntity<Messenger> findUserByJob(PageRequestVo vo) {
         service.findUsersByJob(null);
         return ResponseEntity.ok(new Messenger());
     }
-
-
 }
