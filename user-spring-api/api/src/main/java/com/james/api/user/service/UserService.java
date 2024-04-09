@@ -34,6 +34,8 @@ public interface UserService extends CommandService<UserDto>, QueryService<UserD
                 .name(ent.getName())
                 .phone(ent.getPhone())
                 .job(ent.getJob())
+                .regDate(ent.getRegDate().toString())
+                .modDate(ent.getModDate().toString())
                 .build();
     }
 }

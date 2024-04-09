@@ -16,7 +16,7 @@ export default function BoardColumns(): GridColDef[] {
             sortable: false,
             field: 'id',
             headerName: 'No.',
-            renderCell: ({row}:CellType) => <Typography textAlign="center" sx={{fontSize:"1.5rem"}}>{row.id}</Typography>
+            renderCell: ({row}:CellType) => <Typography textAlign="center" sx={{fontSize:"1.2rem"}}>{row.id}</Typography>
             }
         ,
         {
@@ -25,7 +25,7 @@ export default function BoardColumns(): GridColDef[] {
             sortable: false,
             field: 'boardName',
             headerName: '게시판이름',
-            renderCell: ({row}:CellType) => <Typography textAlign="center" sx={{fontSize:"1.5rem"}}>
+            renderCell: ({row}:CellType) => <Typography textAlign="center" sx={{fontSize:"1.2rem"}}>
             <Link href={`${PG.BOARD}/detail/${row.id}`} className="underline" >{row.boardName}</Link>
             </Typography>
         },
@@ -35,7 +35,7 @@ export default function BoardColumns(): GridColDef[] {
             sortable: false,
             field: 'boardType',
             headerName: '게시판종류',
-            renderCell: ({row}:CellType) => <Typography textAlign="center" sx={{fontSize:"1.5rem"}}>{row.boardType}</Typography>
+            renderCell: ({row}:CellType) => <Typography textAlign="center" sx={{fontSize:"1.2rem"}}>{row.boardType}</Typography>
         },
         {
             flex: 0.04,
@@ -43,7 +43,7 @@ export default function BoardColumns(): GridColDef[] {
             sortable: false,
             field: 'regDate',
             headerName: '작성일자',
-            renderCell: ({row}:CellType) => <Typography textAlign="center" sx={{fontSize:"1.5rem"}}>{row.regDate}</Typography>
+            renderCell: ({row}:CellType) => <Typography textAlign="center" sx={{fontSize:"1.2rem"}}>{row.regDate}</Typography>
         },
         {
             flex: 0.04,
@@ -51,7 +51,7 @@ export default function BoardColumns(): GridColDef[] {
             sortable: false,
             field: 'modDate',
             headerName: '수정일자',
-            renderCell: ({row}:CellType) => <Typography textAlign="center" sx={{fontSize:"1.5rem"}}>{row.modDate}</Typography>
+            renderCell: ({row}:CellType) => <Typography textAlign="center" sx={{fontSize:"1.2rem"}}>{row.modDate}</Typography>
         }
     ]
 }

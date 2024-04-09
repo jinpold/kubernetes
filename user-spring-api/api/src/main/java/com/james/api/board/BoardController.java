@@ -42,9 +42,9 @@ public class BoardController {
     }
 
     @GetMapping("/detail")
-    public ResponseEntity<Optional<BoardDto>> findById(@RequestParam Long id) {
+    public ResponseEntity<BoardDto> findById(@RequestParam Long id) {
         log.info("입력받은 정보 : {}", id );
-        return ResponseEntity.ok(service.findById(id));
+        return ResponseEntity.ok(service.findById(id).orElseGet(BoardDto::new));
     }
 
 

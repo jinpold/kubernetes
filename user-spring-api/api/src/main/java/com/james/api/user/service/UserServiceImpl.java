@@ -43,11 +43,9 @@ public class UserServiceImpl implements UserService {
     public List<UserDto> findAll() {
         return repository.findAll().stream().map(i->entityToDto(i)).toList();
     }
-
     @Override
     public Optional<UserDto> findById(long id) {
-        // Optional.of(entityToDto(repository.findById(id)));
-        return null;
+        return repository.findById(id).stream().map(i -> entityToDto(i)).findAny();
     }
     @Override
     public long count() {

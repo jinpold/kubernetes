@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { findAllBoards } from "./board-service";
+import { findAllBoards, findBoardById } from "./board-service";
 import { initialState } from "./board-init";
+
 
 
 const boardThunks = [findAllBoards]
@@ -14,14 +15,10 @@ const status = {
 const handlePending = (state:any) => {
 }
 
-const handleFulfilled = (state:any, {payload}:any)=>{ 
-    console.log('---------------- conclusion ----------------')
-    state.array = payload
-    console.log(state.array)
-}
 
 const handleRejected = (state:any) => {
 }
+
 
 
 export const boardSlice = createSlice({  
@@ -32,7 +29,8 @@ export const boardSlice = createSlice({
         const {pending, rejected} = status;
 
         builder                                                 
-        .addCase(findAllBoards.fulfilled, handleFulfilled)   
+        .addCase(findAllBoards.fulfilled, (state:any, {payload}:any)=>{state.array = payload})  
+        .addCase(findBoardById.fulfilled, (state:any, {payload}:any)=>{state.json = payload}) 
     }                                                        
 })
 
@@ -41,6 +39,15 @@ export const getAllBoards = (state: any) => {
     console.log(JSON.stringify(state.board.array))
     return state.board.array;  
 }
+
+export const getBoardById = (state: any) => {
+    console.log('---------------- Before useSelector ----------------')
+    console.log(JSON.stringify(state.board.json))
+    console.log("값 불러오기")
+    return state.board.json; 
+
+}
+
 
 export const {} = boardSlice.actions
 

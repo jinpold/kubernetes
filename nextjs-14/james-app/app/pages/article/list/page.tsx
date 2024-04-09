@@ -37,7 +37,7 @@ const ArtilcesPage: NextPage = ({data}:any) => {
     // 하기 리턴은 jsx로 작성해야함.
     return (<> 
         <h2>개인페이지 Article</h2> 
-        <Box sx={{ height: 400, width: '100%' }}>
+        <Box sx={{ height: "100%", width: '100%' }}>
       <DataGrid
         rows={allArticles}
         columns={ArticleColumns()}

@@ -31,7 +31,7 @@ const UsersPage: NextPage = () => {
     },[])
 
     return(<>
-    <div style={{ height: 400, width: "100%" }}>
+    <div style={{ height: "100%", width: "100%" }}>
       {allUsers && <DataGrid //allUsers 유저스가 있으면 && 뒤의 이벤트를 작동해라
         rows={allUsers}
         columns={UserColumns()}

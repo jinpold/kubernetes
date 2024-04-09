@@ -25,6 +25,8 @@ public interface ArticleService extends CommandService<ArticleDto>, QueryService
                 .id(ent.getId())
                 .title(ent.getTitle())
                 .content(ent.getContent())
+                .regDate(ent.getRegDate().toString())
+                .modDate(ent.getModDate().toString())
                 .build();
     }
 }
