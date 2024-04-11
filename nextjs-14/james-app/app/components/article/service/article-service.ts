@@ -12,19 +12,13 @@ export const findAllArticles: any = createAsyncThunk( // 데이터를 비동기�
         // console.log('----- API를 사용한 경우 ------')
         // console.log('message : ' + message)
         // console.log(JSON.stringify(result))
-        
+    
         return data
     }
 )
 
 export const findArticleById: any = createAsyncThunk( 
     'articles/findArticleById',                      
-    async (page: number) => {
-        console.log('findArticleById page : ' + page)
-        const data: any = await findArticleByIdAPI(page); 
-
-        const { message, result }: any = data;
-       
-        return data
-    }
+    async (page: number) => (await findArticleByIdAPI(page))
+    //return 생략
 )

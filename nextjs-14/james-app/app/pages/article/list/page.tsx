@@ -18,7 +18,7 @@ const ArtilcesPage: NextPage = ({data}:any) => {
     // const [articles, setArticles] = useState([])
     const allArticles: [] = useSelector(getAllArticles) // 4번 실행 (리덕스 통해서 실행가능)
 
-    if(allArticles !== undefined){
+    if(allArticles !== undefined){ // 슬라이스 fulfilled의 전후를 확인하는 로직  (생략가능)
         console.log('allArticles is not undefined')
 
         console.log('length is '+ allArticles.length)
@@ -30,7 +30,7 @@ const ArtilcesPage: NextPage = ({data}:any) => {
     }
  
     useEffect(() => { // 1번실행  -> 즉시실행 함수 
-        dispatch(findAllArticles(1))  // dispatch 2번실행 // (fetchAllArticles) 3번실행 (리덕스에 실행)
+        dispatch(findAllArticles(1))  // dispatch 2번실행 // (fetchAllArticles) = thunk 3번실행 (리덕스에 실행)
     }, []) // <- [] 안에 dispatch를 넣었다고 가정하고 dispatch(상태)가 바뀌면 useEffect 다시 실행한다.
     
   

@@ -40,9 +40,6 @@ const LoginPage = () => {
         }
       })
   }
-
-
-
   return (<>
     <h1>로그인</h1>
     <h3>ID</h3>
