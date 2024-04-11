@@ -7,5 +7,6 @@ export const initialState: IUsers = {
     name: "",
     phone: "",
     job: "",
-    array:[]
+    array:[],
+    json:{}
 }

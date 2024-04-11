@@ -34,7 +34,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
     @Override
     public Optional<ArticleDto> findById(long id) {
-        return null;
+        return repository.findById(id).stream().map(i -> entityToDto(i)).findAny();
     }
     @Override
     public long count() {

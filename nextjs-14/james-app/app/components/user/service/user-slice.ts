@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initialState } from "./user-init";
-import { findAllUsers } from "./user-service";
+import { findAllUsers, findUserById } from "./user-service";
 
 const userThunks = [findAllUsers]
 
@@ -12,12 +12,6 @@ const status = {
 
 const handlePending = (state:any) => {}
 
-const handleFulfilled = (state:any, {payload}:any) => {
-    console.log('--conclusion--')
-    state.array = payload
-    console.log(state.array)
-}
-
 const handleRejected = (state:any) => {}
 
 export const userSlice = createSlice({
@@ -27,7 +21,8 @@ export const userSlice = createSlice({
     extraReducers:builder =>{
         const {pending, rejected} = status;
 
-        builder.addCase(findAllUsers.fulfilled, handleFulfilled)
+        builder.addCase(findAllUsers.fulfilled, (state:any, {payload}:any) => {state.array = payload})
+        builder.addCase(findUserById.fulfilled, (state:any, {payload}:any) => {state.json = payload})
     }
 })
 
@@ -35,6 +30,14 @@ export const getAllUsers = (state:any) => {
     console.log('-- Before useSelector --')
     console.log(JSON.stringify(state.user.array))
     return state.user.array;
+}
+
+export const getUserById = (state: any) => {
+    console.log('---------------- Before useSelector ----------------')
+    console.log(JSON.stringify(state.user.json))
+    console.log("값 불러오기")
+    return state.user.json; 
+
 }
 
 export const { } = userSlice.actions

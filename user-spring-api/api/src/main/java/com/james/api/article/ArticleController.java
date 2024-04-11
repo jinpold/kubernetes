@@ -1,6 +1,7 @@
 package com.james.api.article;
 import com.james.api.article.model.ArticleDto;
 import com.james.api.article.service.ArticleServiceImpl;
+import com.james.api.board.model.BoardDto;
 import com.james.api.common.component.Messenger;
 import com.james.api.common.component.PageRequestVo;
 import com.james.api.user.model.UserDto;
@@ -39,9 +40,9 @@ public class ArticleController {
     }
 
     @GetMapping("/detail")
-    public ResponseEntity<Optional<ArticleDto>> findById(@RequestParam Long id) {
+    public ResponseEntity<ArticleDto> findById(@RequestParam Long id) {
         log.info("입력받은 정보 : {}", id );
-        return ResponseEntity.ok(service.findById(id));
+        return ResponseEntity.ok(service.findById(id).orElseGet(ArticleDto::new));
     }
     @DeleteMapping("/delete")
     public ResponseEntity<Messenger> deleteById(@RequestParam Long id) {
