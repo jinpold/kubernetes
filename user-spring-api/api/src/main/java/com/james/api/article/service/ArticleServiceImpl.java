@@ -22,7 +22,13 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public Messenger deleteById(Long id) {
         repository.deleteById(id);
-        return new Messenger();
+        return existsById(id) ?
+                Messenger.builder()
+                        .message("회원탈퇴 완료")
+                        .build() :
+                Messenger.builder()
+                        .message("회원탈퇴 실패")
+                        .build();
     }
     @Override
     public Messenger modify(ArticleDto articleDto) {
@@ -33,17 +39,16 @@ public class ArticleServiceImpl implements ArticleService {
         return repository.findAll().stream().map(i->entityToDto(i)).toList();
     }
     @Override
-    public Optional<ArticleDto> findById(long id) {
+    public Optional<ArticleDto> findById(Long id) {
         return repository.findById(id).stream().map(i -> entityToDto(i)).findAny();
     }
     @Override
-    public long count() {
+    public Long count() {
         return repository.count();
     }
 
     @Override
-    public boolean existsById(long id) {
+    public boolean existsById(Long id) {
         return repository.existsById(id);
     }
 }
-

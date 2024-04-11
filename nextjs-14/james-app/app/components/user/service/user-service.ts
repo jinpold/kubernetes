@@ -1,12 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { findAllUsersAPI, findUserByIdAPI } from "./user-api";
+import { findAllUsersAPI, findDeleteByIdAPI, findModifyAPI, findUserByIdAPI } from "./user-api";
+import { IUsers } from "../model/user";
 
 
 export const findAllUsers: any = createAsyncThunk(
     'users/findAllUsers',
     async (page: number) => {
         console.log('findAllUsers page : ' + page)
-        const data: any = await findAllUsersAPI(1);
+        const data: any = await findAllUsersAPI(page);
         const { message, result }: any = data;
         console.log('----- API를 사용한 경우 ------')
         console.log('message : ' + message)
@@ -17,9 +18,33 @@ export const findAllUsers: any = createAsyncThunk(
 
 export const findUserById: any = createAsyncThunk( 
     'users/findUserById',                      
-    async (page: number) => {
-        console.log('findUserById page : ' + page)
-        const data: any = await findUserByIdAPI(page); 
+    async (id: number) => {
+        console.log('findUserById id : ' + id)
+        const data: any = await findUserByIdAPI(id); 
+
+        const { message, result }: any = data;
+       
+        return data
+    }
+)
+
+export const findModify: any = createAsyncThunk( 
+    'users/findModify',                      
+    async (id: IUsers) => {
+        console.log('findModify : ' + id)
+        const data: any = await findModifyAPI(id); 
+
+        const { message, result }: any = data;
+       
+        return data
+    }
+)
+
+export const findDeleteById: any = createAsyncThunk( 
+    'users/findDeleteById',                      
+    async (id: IUsers) => {
+        console.log('findDeleteById : ' + id)
+        const data: any = await findDeleteByIdAPI(id); 
 
         const { message, result }: any = data;
        

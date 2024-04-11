@@ -15,9 +15,7 @@ export const findAllBoardsAPI = async (page: number) =>{     // axios = 동기�
 
 export const findBoardByIdAPI = async (id: number) =>{     // axios = 동기식, 
     try{                                                        // axios를 thunk로 감싸면 비동기가 된다
-        const response = await instance.get('/boards/detail',{
-            params: {id}
-        })
+        const response = await instance.get('/boards/detail',{params: {id}})
         return response.data
     }catch(error){
         console.log(error)

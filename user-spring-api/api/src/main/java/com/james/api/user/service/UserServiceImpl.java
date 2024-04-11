@@ -19,10 +19,26 @@ public class UserServiceImpl implements UserService {
     public Messenger save(UserDto t) {
         repository.save(dtoToEntity(t));
         return Messenger.builder()
-                .message("회원가입 성공"+t.getName())
+                .message("성공")
+                .status(200)
                 .build();
     }
-
+    @Override
+    public List<UserDto> findAll() {
+        return repository.findAll().stream().map(i->entityToDto(i)).toList();
+    }
+    @Override
+    public Optional<UserDto> findById(Long id) {
+        return repository.findById(id).stream().map(i -> entityToDto(i)).findAny();
+    }
+    @Override
+    public Messenger modify(UserDto userDto) {
+        repository.save(dtoToEntity(userDto));
+        return Messenger.builder()
+                .message("성공")
+                .status(200)
+                .build();
+    }
     @Override
     public Messenger deleteById(Long id) {
         repository.deleteById(id);
@@ -34,28 +50,16 @@ public class UserServiceImpl implements UserService {
                         .message("회원탈퇴 실패")
                         .build();
     }
-
     @Override
-    public Messenger modify(UserDto user) {
-        return null;
-    }
-    @Override
-    public List<UserDto> findAll() {
-        return repository.findAll().stream().map(i->entityToDto(i)).toList();
-    }
-    @Override
-    public Optional<UserDto> findById(long id) {
-        return repository.findById(id).stream().map(i -> entityToDto(i)).findAny();
-    }
-    @Override
-    public long count() {
-        return repository.count();
-    }
-    @Override
-    public boolean existsById(long id) {
+    public boolean existsById(Long id) {
         return repository.existsById(id);
     }
 
+
+    @Override
+    public Long count() {
+        return repository.count();
+    }
     @Override
     public List<UserDto> findUsersByJob(String job) {
         return null;

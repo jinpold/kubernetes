@@ -10,6 +10,6 @@ import java.util.Optional;
 public interface QueryService<T> {
 
     List<T> findAll() throws SQLException;
-    Optional<T> findById(long id);
-    long count();
-    boolean existsById(long id);}
+    Optional<T> findById(Long id);
+    Long count();
+    boolean existsById(Long id);}

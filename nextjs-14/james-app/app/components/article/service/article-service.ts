@@ -6,7 +6,7 @@ export const findAllArticles: any = createAsyncThunk( // 데이터를 비동기�
     'articles/findAllArticles',                        // createAsyncThunk가 없으면 동기로 보내는 것
     async (page: number) => {
         console.log('findAllArticles page : ' + page)
-        const data: any = await findAllArticlesAPI(1); // axios = 자바와 연결해주는 것
+        const data: any = await findAllArticlesAPI(page); // axios = 자바와 연결해주는 것
 
         const { message, result }: any = data;
         // console.log('----- API를 사용한 경우 ------')
@@ -19,6 +19,6 @@ export const findAllArticles: any = createAsyncThunk( // 데이터를 비동기�
 
 export const findArticleById: any = createAsyncThunk( 
     'articles/findArticleById',                      
-    async (page: number) => (await findArticleByIdAPI(page))
+    async (id: number) => (await findArticleByIdAPI(id))
     //return 생략
 )

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initialState } from "./user-init";
-import { findAllUsers, findUserById } from "./user-service";
+import { findAllUsers, findDeleteById, findModify, findUserById } from "./user-service";
 
 const userThunks = [findAllUsers]
 
@@ -23,6 +23,8 @@ export const userSlice = createSlice({
 
         builder.addCase(findAllUsers.fulfilled, (state:any, {payload}:any) => {state.array = payload})
         builder.addCase(findUserById.fulfilled, (state:any, {payload}:any) => {state.json = payload})
+        builder.addCase(findModify.fulfilled, (state:any, {payload}:any) => {state.array = payload})
+        builder.addCase(findDeleteById.fulfilled, (state:any, {payload}:any) => {state.json = payload})
     }
 })
 
@@ -33,6 +35,22 @@ export const getAllUsers = (state:any) => {
 }
 
 export const getUserById = (state: any) => {
+    console.log('---------------- Before useSelector ----------------')
+    console.log(JSON.stringify(state.user.json))
+    console.log("값 불러오기")
+    return state.user.json; 
+
+}
+
+export const getModify = (state: any) => {
+    console.log('---------------- Before useSelector ----------------')
+    console.log(JSON.stringify(state.user.array))
+    console.log("값 불러오기")
+    return state.user.array; 
+
+}
+
+export const getDeleteById = (state: any) => {
     console.log('---------------- Before useSelector ----------------')
     console.log(JSON.stringify(state.user.json))
     console.log("값 불러오기")

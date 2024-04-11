@@ -8,7 +8,7 @@ interface CellType{
     row : UserColumn
 }
 
-export default function UserColumns(): GridColDef[] {
+export default function UserColumns(): GridColDef [] {
     return [
         {
             flex: 0.04,

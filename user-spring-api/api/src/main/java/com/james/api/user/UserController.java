@@ -1,8 +1,6 @@
 package com.james.api.user;
-import com.james.api.article.model.ArticleDto;
 import com.james.api.common.component.Messenger;
 import com.james.api.common.component.PageRequestVo;
-import com.james.api.user.model.User;
 import com.james.api.user.model.UserDto;
 import com.james.api.user.repository.UserRepository;
 import com.james.api.user.service.UserService;
@@ -38,17 +36,13 @@ public class UserController {
     }
     // -----------------------------------Query ---------------------------------------
 
-//    @PostMapping(path = "/login")
-//    public ResponseEntity<MessengerVo> login(@RequestBody Map<String, UserDto> paramap) {
-//        Map<String, MessengerVo> response = new HashMap<>();
-//        String username = String.valueOf(paramap.get("username"));
-//        //User user = service.findByUsername(username).orElse(null);
-//        return ResponseEntity.ok(new MessengerVo());
-//    }
-
     @PostMapping(path = "/login")
-    public ResponseEntity<Messenger> login(@RequestBody UserDto param) {
-         return ResponseEntity.ok(service.login(param));
+    public ResponseEntity<Messenger> login(@RequestBody UserDto dto) {
+        log.info("입력받은 정보 : {}", dto);
+        return ResponseEntity.ok(service.login(UserDto.builder()
+                .username(dto.getUsername())
+                .password(dto.getPassword())
+                .build()));
     }
     @GetMapping("/list")
     public ResponseEntity<List<UserDto>> findAll() throws SQLException {
@@ -61,27 +55,25 @@ public class UserController {
         log.info("입력받은 정보 : {}", id );
         return ResponseEntity.ok(service.findById(id).orElseGet(UserDto::new));
     }
-    @DeleteMapping("/delete")
-    public ResponseEntity<Messenger> deleteById(@RequestParam Long id) {
+    @PutMapping ("/modify")
+    public ResponseEntity<Messenger> modify(@RequestBody UserDto dto) {
+        log.info("입력받은 정보 : {}", dto );
+        return ResponseEntity.ok(service.modify(dto));
+    }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Messenger> deleteById(@PathVariable Long id) {
         log.info("입력받은 정보 : {}", id );
         return ResponseEntity.ok(service.deleteById(id));
+    }
+    @GetMapping("/exists")
+    public ResponseEntity<UserDto> existsById(@RequestParam Long id){
+        service.existsById(0L);
+        return ResponseEntity.ok(service.findById(id).orElseGet(UserDto::new));
     }
 
     @GetMapping("/count")
     public ResponseEntity<Long> count()  {
         return ResponseEntity.ok(service.count());
-    }
-
-    @GetMapping("/exists/{id}")
-    public ResponseEntity<Messenger> existsById(PageRequestVo vo){
-        service.existsById(0L);
-        return ResponseEntity.ok(new Messenger());
-    }
-
-    @PutMapping("/modify")
-    public ResponseEntity<Messenger> modify(@RequestBody UserDto param) {
-        log.info("입력받은 정보 : {}", param );
-        return ResponseEntity.ok(service.modify(param));
     }
 
     @PostMapping("/search")

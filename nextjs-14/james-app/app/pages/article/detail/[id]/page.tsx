@@ -1,4 +1,5 @@
 'use client'
+import { IArticles } from "@/app/components/article/model/article";
 import { findArticleById } from "@/app/components/article/service/article-service";
 import { getArticleById } from "@/app/components/article/service/article-slice";
 import { Typography } from "@mui/material";
@@ -10,7 +11,7 @@ import { useDispatch } from "react-redux";
 export default function ArticleDetailPage (props:any){
 
     const dispatch = useDispatch()
-    const article = useSelector(getArticleById)
+    const article:IArticles = useSelector(getArticleById)
     
     useEffect(()=>{
         dispatch(findArticleById(props.params.id))

@@ -12,17 +12,20 @@ import { Typography } from "@mui/material";
 import { createAsyncThunk } from "@reduxjs/toolkit/react";
 import { getBoardById } from "@/app/components/board/service/board-slice";
 import { findBoardById } from "@/app/components/board/service/board-service";
+import { IBoards } from "@/app/components/board/model/board";
 
 
 export default function BoardDetailPage (props:any){
 
 
     const dispatch = useDispatch()
-    const board = useSelector(getBoardById)
+    const board:IBoards = useSelector(getBoardById)
     
     useEffect(()=>{
         dispatch(findBoardById(props.params.id))
     },[])
+
+    
 
     
     return(<>

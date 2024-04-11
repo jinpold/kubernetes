@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux"
 
 const BoardsPage: NextPage = () => {
     const [pageSize, setPageSize] = useState(5); 
+    
 
     const dispatch = useDispatch()
     const allBoards: [] = useSelector(getAllBoards)

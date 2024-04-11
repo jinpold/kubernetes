@@ -34,15 +34,15 @@ public class BoardServiceImpl implements BoardService{
         return repository.findAll().stream().map(i->entityToDto(i)).toList();
     }
     @Override
-    public Optional<BoardDto> findById(long id) {
+    public Optional<BoardDto> findById(Long id) {
         return repository.findById(id).stream().map(i -> entityToDto(i)).findAny();
     }
     @Override
-    public long count() {
+    public Long count() {
         return repository.count();
     }
     @Override
-    public boolean existsById(long id) {
+    public boolean existsById(Long id) {
         return repository.existsById(id);
     }
 }
