@@ -26,10 +26,7 @@ export default function BoardDetailPage (props:any){
     },[])
 
     
-
-    
     return(<>
-    
     
     <h3>게시판 상세</h3>
     <span>ID : </span><Typography textAlign="center" sx={{fontSize:"1.2rem"}}>{props.params.id}</Typography>

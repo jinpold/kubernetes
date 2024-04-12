@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initialState } from "./user-init";
-import { findAllUsers, findDeleteById, findModify, findUserById } from "./user-service";
+import { findAllUsers, findCount, findDeleteById, findModify, findUserById } from "./user-service";
 
 const userThunks = [findAllUsers]
 
@@ -17,7 +17,11 @@ const handleRejected = (state:any) => {}
 export const userSlice = createSlice({
     name: "users",
     initialState,
-    reducers: {},
+    reducers: {
+        passwordHandler: (state:any, {payload}) => {state.json.password = payload},
+        phoneHandler: (state:any, {payload}) => {state.json.phone = payload},
+        jobHandler: (state:any, {payload}) => {state.json.job = payload}
+    },
     extraReducers:builder =>{
         const {pending, rejected} = status;
 
@@ -25,6 +29,7 @@ export const userSlice = createSlice({
         builder.addCase(findUserById.fulfilled, (state:any, {payload}:any) => {state.json = payload})
         builder.addCase(findModify.fulfilled, (state:any, {payload}:any) => {state.array = payload})
         builder.addCase(findDeleteById.fulfilled, (state:any, {payload}:any) => {state.json = payload})
+        builder.addCase(findCount.fulfilled, (state:any, {payload}:any) => {state.count = payload})
     }
 })
 
@@ -58,6 +63,14 @@ export const getDeleteById = (state: any) => {
 
 }
 
-export const { } = userSlice.actions
+export const getCount = (state: any) => {
+    console.log('---------------- Before useSelector ----------------')
+    console.log(JSON.stringify(state.user.count))
+    console.log("값 불러오기")
+    return state.user.count; 
+
+}
+
+export const {passwordHandler, phoneHandler, jobHandler } = userSlice.actions
 
 export default userSlice.reducer;

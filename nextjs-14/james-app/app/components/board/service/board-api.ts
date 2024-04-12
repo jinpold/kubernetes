@@ -13,9 +13,31 @@ export const findAllBoardsAPI = async (page: number) =>{     // axios = 동기�
     
 }
 
-export const findBoardByIdAPI = async (id: number) =>{     // axios = 동기식, 
-    try{                                                        // axios를 thunk로 감싸면 비동기가 된다
+export const findBoardByIdAPI = async (id: number) =>{      
+    try{                                                      
         const response = await instance.get('/boards/detail',{params: {id}})
+        return response.data
+    }catch(error){
+        console.log(error)
+        return error
+    }
+}
+export const findDeleteByIdAPI = async (id: number) =>{    
+    try{                                                        
+        const response = await instance.delete('/boards/delete',{
+            params: {id}
+        })
+        return response.data
+    }catch(error){
+        console.log(error)
+        return error
+    }
+}
+export const findCountAPI = async () =>{    
+    try{                                                        
+        const response = await instance.get('/boards/count',{
+            params: {}
+        })
         return response.data
     }catch(error){
         console.log(error)

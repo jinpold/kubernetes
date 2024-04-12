@@ -3,11 +3,13 @@ import com.james.api.common.component.Messenger;
 import com.james.api.user.model.User;
 import com.james.api.user.model.UserDto;
 import com.james.api.user.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -17,10 +19,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Messenger save(UserDto t) {
-        repository.save(dtoToEntity(t));
+        User ent = repository.save(dtoToEntity(t));
+        System.out.println((ent instanceof User) ? "SUCCESS" : "FAILURE");
         return Messenger.builder()
-                .message("성공")
-                .status(200)
+                .message((ent instanceof User) ? "SUCCESS" : "FAILURE")
                 .build();
     }
     @Override
@@ -31,35 +33,55 @@ public class UserServiceImpl implements UserService {
     public Optional<UserDto> findById(Long id) {
         return repository.findById(id).stream().map(i -> entityToDto(i)).findAny();
     }
+
+    @Transactional
     @Override
     public Messenger modify(UserDto userDto) {
         repository.save(dtoToEntity(userDto));
         return Messenger.builder()
                 .message("성공")
                 .status(200)
+                .code("코드")
                 .build();
     }
+
+    //    @Override
+//    public Optional<UserDto> modify(UserDto userDto) {
+//        Optional<User> user = repository.findById(userDto.getId());
+//        user.get().setName(userDto.getName());
+//        user.get().setPhone(userDto.getPhone());
+//        user.get().setJob(userDto.getJob());
+//        user.get().setUsername(userDto.getUsername());
+//        return Optional.of(repository.save(user.get())).map(i -> entityToDto(i));
+//    }
     @Override
     public Messenger deleteById(Long id) {
         repository.deleteById(id);
-        return existsById(id) ?
-                Messenger.builder()
-                        .message("회원탈퇴 완료")
-                        .build() :
-                Messenger.builder()
-                        .message("회원탈퇴 실패")
-                        .build();
+        return Messenger.builder().message
+                (Stream.of(id)
+                        .filter(i -> existsById(i))
+                        .peek(i -> repository.deleteById(i))
+                        .map(i -> "SUCCESS")
+                        .findAny()
+                        .orElseGet(()->"FAILURE")).build();
     }
     @Override
     public boolean existsById(Long id) {
         return repository.existsById(id);
     }
 
-
     @Override
     public Long count() {
         return repository.count();
     }
+
+//    @Override
+//    public Messenger count() {
+//        return Messenger.builder()
+//                .message(repository.count()+"")
+//                .build();
+//                }
+
     @Override
     public List<UserDto> findUsersByJob(String job) {
         return null;

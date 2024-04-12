@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { findAllBoards, findBoardById } from "./board-service";
+import { findAllBoards, findBoardById, findCount, findDeleteById } from "./board-service";
 import { initialState } from "./board-init";
 
 
@@ -19,8 +19,6 @@ const handlePending = (state:any) => {
 const handleRejected = (state:any) => {
 }
 
-
-
 export const boardSlice = createSlice({  
     name: "boards",
     initialState,
@@ -30,7 +28,9 @@ export const boardSlice = createSlice({
 
         builder                                                 
         .addCase(findAllBoards.fulfilled, (state:any, {payload}:any)=>{state.array = payload})  
-        .addCase(findBoardById.fulfilled, (state:any, {payload}:any)=>{state.json = payload}) 
+        .addCase(findBoardById.fulfilled, (state:any, {payload}:any)=>{state.json = payload})
+        .addCase(findDeleteById.fulfilled, (state:any, {payload}:any)=>{state.json = payload}) 
+        .addCase(findCount.fulfilled, (state:any, {payload}:any)=>{state.count = payload}) 
     }                                                        
 })
 
@@ -39,14 +39,28 @@ export const getAllBoards = (state: any) => {
     console.log(JSON.stringify(state.board.array))
     return state.board.array;  
 }
-
 export const getBoardById = (state: any) => {
     console.log('---------------- Before useSelector ----------------')
     console.log(JSON.stringify(state.board.json))
     console.log("값 불러오기")
     return state.board.json; 
-
 }
+export const getDeleteById = (state: any) => {
+    console.log('---------------- Before useSelector ----------------')
+    console.log(JSON.stringify(state.board.json))
+    console.log("값 불러오기")
+    return state.board.json; 
+}
+export const getCount = (state: any) => {
+    console.log('---------------- Before useSelector ----------------')
+    console.log(JSON.stringify(state.board.count))
+    console.log("값 불러오기")
+    return state.board.count; 
+}
+
+
+
+
 
 
 export const {} = boardSlice.actions

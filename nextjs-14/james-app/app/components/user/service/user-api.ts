@@ -27,11 +27,10 @@ export const findUserByIdAPI = async (id: number) => {
     
 }
 
-export const findModifyAPI = async (modify: IUsers) => {
+export const findModifyAPI = async (user: IUsers) => {
     try{
-        const response = await instance.put('/users/modify',{
-            params: {modify}
-        })
+        const response = (await instance.put('/users/modify', user))
+            
         return response.data
     }catch(error){
         console.log(error)
@@ -51,4 +50,16 @@ export const findDeleteByIdAPI = async (deleteId: IUsers) => {
         return error
     }
     
+}
+
+export const findCountAPI = async () => {
+    try{
+        const response = await instance.get('/users/count',{
+            params: {}
+        })
+        return response.data
+    }catch(error){
+        console.log(error)
+        return error
+    }
 }

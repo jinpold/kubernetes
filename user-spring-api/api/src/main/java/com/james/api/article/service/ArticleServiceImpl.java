@@ -22,13 +22,9 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public Messenger deleteById(Long id) {
         repository.deleteById(id);
-        return existsById(id) ?
-                Messenger.builder()
-                        .message("회원탈퇴 완료")
-                        .build() :
-                Messenger.builder()
-                        .message("회원탈퇴 실패")
-                        .build();
+        return Messenger.builder()
+                .message(repository.findById(id).isPresent() ? "SUCCESS" : "FAILURE")
+                .build();
     }
     @Override
     public Messenger modify(ArticleDto articleDto) {

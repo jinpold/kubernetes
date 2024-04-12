@@ -23,7 +23,7 @@ public class User extends BaseEntity {
     private String phone;
     private String job;
 
-    @OneToMany(mappedBy = "writer", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "writer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Article> article;
 
     @Builder(builderMethodName = "builder")

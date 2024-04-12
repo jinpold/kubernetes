@@ -34,7 +34,6 @@ public class BoardController {
         return ResponseEntity.ok(service.save(dto));
 
     }
-
     @GetMapping("/list") //all-users
     public ResponseEntity<List<BoardDto>> findAll() throws SQLException {
         log.info("입력받은 정보 : {}" );
@@ -46,14 +45,11 @@ public class BoardController {
         log.info("입력받은 정보 : {}", id );
         return ResponseEntity.ok(service.findById(id).orElseGet(BoardDto::new));
     }
-
-
     @DeleteMapping("/delete")
     public ResponseEntity<Messenger> deleteById(@RequestParam Long id) {
         log.info("입력받은 정보 : {}", id );
         return ResponseEntity.ok(service.deleteById(id));
     }
-
 
     @GetMapping("/count")
     public ResponseEntity<Long> count()  {

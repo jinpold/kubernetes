@@ -18,16 +18,12 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public Messenger save(BoardDto t) {
-        entityToDto((repository.save(dtoToEntity(t))));
-        return new Messenger();
-    }
-    @Override
-    public Messenger deleteById(Long id) {
-        return null;
-    }
-    @Override
-    public Messenger modify(BoardDto boardDto) {
-        return null;
+        repository.save(dtoToEntity(t));
+        return Messenger.builder()
+                .message("성공")
+                .status(200)
+                .code("코드")
+                .build();
     }
     @Override
     public List<BoardDto> findAll() throws SQLException {
@@ -37,6 +33,33 @@ public class BoardServiceImpl implements BoardService{
     public Optional<BoardDto> findById(Long id) {
         return repository.findById(id).stream().map(i -> entityToDto(i)).findAny();
     }
+
+    @Override
+    public Messenger modify(BoardDto boardDto) {
+        repository.save(dtoToEntity(boardDto));
+        return Messenger.builder()
+                .message("성공")
+                .status(200)
+                .code("코드")
+                .build();
+    }
+    @Override
+    public Messenger deleteById(Long id) {
+        repository.deleteById(id);
+        return existsById(id) ?
+                Messenger.builder()
+                        .message("회원탈퇴 완료")
+                        .status(200)
+                        .code("")
+                        .build() :
+                Messenger.builder()
+                        .message("회원탈퇴 실패")
+                        .status(200)
+                        .code("")
+                        .build();
+    }
+
+
     @Override
     public Long count() {
         return repository.count();

@@ -44,8 +44,8 @@ public class ArticleController {
         log.info("입력받은 정보 : {}", id );
         return ResponseEntity.ok(service.findById(id).orElseGet(ArticleDto::new));
     }
-    @DeleteMapping("/delete")
-    public ResponseEntity<Messenger> deleteById(@RequestParam Long id) {
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Messenger> deleteById(@PathVariable Long id) {
         log.info("입력받은 정보 : {}", id );
         return ResponseEntity.ok(service.deleteById(id));
     }

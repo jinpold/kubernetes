@@ -7,6 +7,7 @@ export const initialState: IArticles = {
     content: "",
     writerId: 0,
     boardId: 0,
+    count: 0,
     regDate: "",
     modDate: "",
     array: [],
