@@ -7,28 +7,36 @@ import { findAllArticles, findCount } from "@/app/components/article/service/art
 import { DataGrid } from "@mui/x-data-grid";
 import { Box } from "@mui/material";
 import ArticleColumns from "@/app/components/article/module/article-columns";
-
-// import React from "react";
+import React from "react";
+const cards = [
+  "https://www.tailwindtap.com/assets/components/horizontal-carousel/mountain-nightview.jpg",
+  "https://www.tailwindtap.com/assets/components/horizontal-carousel/autumn.jpg",
+  "https://www.tailwindtap.com/assets/components/horizontal-carousel/babypinetree.jpg",
+  "https://www.tailwindtap.com/assets/components/horizontal-carousel/beach.jpg",
+  "https://www.tailwindtap.com/assets/components/horizontal-carousel/purpleflowers.jpg",
+  "https://www.tailwindtap.com/assets/components/horizontal-carousel/starrysky.jpg",
+  "https://www.tailwindtap.com/assets/components/horizontal-carousel/lake.jpg",
+];
 
 
 // 리액트 - 리덕스는 실행순서가 하향식이 아니다. -> 즉시실행함수부터 먼저 실행됨.
 // 하기 page는 .tsx이다. return은 jsx로 와야한다.
-const ArtilcesPage: NextPage = ({data}:any) => {
+export default function ArticlesPage ({data}:any) {
     const dispatch = useDispatch()
     // const [articles, setArticles] = useState([])
     const allArticles: [] = useSelector(getAllArticles) // 4번 실행 (리덕스 통해서 실행가능)
     const countArticles = useSelector(getCount)
 
-    // if(allArticles !== undefined){ // 슬라이스 fulfilled의 전후를 확인하는 로직  (생략가능)
-    //     console.log('allArticles is not undefined')
+    if(allArticles !== undefined){ // 슬라이스 fulfilled의 전후를 확인하는 로직  (생략가능)
+        console.log('allArticles is not undefined')
 
-    //     console.log('length is '+ allArticles.length)
-    //     for(let i=0; i< allArticles.length; i++){
-    //         console.log(JSON.stringify(allArticles[i]))
-    //     }
-    // }else{
-    //     console.log('allArticles is undefined')
-    // }
+        console.log('length is '+ allArticles.length)
+        for(let i=0; i< allArticles.length; i++){
+            console.log(JSON.stringify(allArticles[i]))
+        }
+    }else{
+        console.log('allArticles is undefined')
+    }
  
     useEffect(() => { // 1번실행  -> 즉시실행 함수 
         dispatch(findAllArticles(1))  // dispatch 2번실행 // (fetchAllArticles) = thunk 3번실행 (리덕스에 실행)
@@ -37,10 +45,28 @@ const ArtilcesPage: NextPage = ({data}:any) => {
     
   
     // 하기 리턴은 jsx로 작성해야함.
-    return (<> 
+    return (<>
+    <div className="flex flex-col  items-center justify-center w-full bg-white-300">
+      <div className="flex overflow-x-scroll snap-x snap-mandatory max-w-6xl no-scrollbar">
+        {cards.map((data, index) => {
+          return (
+            <section
+              className="flex-shrink-0 w-full snap-center justify-center items-center"
+              key={index}
+            >
+              <img
+                src={data}
+                alt="Images to scroll horizontal"
+                className="w-full h-[500px]"
+              />
+            </section>
+          );
+        })}
+      </div>
+    </div>
         <h2> 게시글 수 :{countArticles} </h2> 
         <Box sx={{ height: "100%", width: '100%' }}>
-      <DataGrid
+      {allArticles && <DataGrid
         rows={allArticles}
         columns={ArticleColumns()}
         initialState={{
@@ -53,9 +79,7 @@ const ArtilcesPage: NextPage = ({data}:any) => {
         pageSizeOptions={[5, 10, 20]} 
         checkboxSelection
         disableRowSelectionOnClick
-      />
+      />}
     </Box>
     </>)
 }
-
-export default ArtilcesPage

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import com.james.api.common.component.Messenger;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import com.james.api.board.model.BoardDto;
 import com.james.api.board.repository.BoardRepository;
@@ -34,6 +35,7 @@ public class BoardServiceImpl implements BoardService{
         return repository.findById(id).stream().map(i -> entityToDto(i)).findAny();
     }
 
+    @Transactional
     @Override
     public Messenger modify(BoardDto boardDto) {
         repository.save(dtoToEntity(boardDto));

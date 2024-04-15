@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { findAllArticlesAPI, findArticleByIdAPI, findCountAPI, findDeleteByIdAPI } from "./article-api";
+import { findAllArticlesAPI, findArticleByIdAPI, findCountAPI, findDeleteByIdAPI, findModifyAPI } from "./article-api";
+import { IArticles } from "../model/article";
 
 
 export const findAllArticles: any = createAsyncThunk( // 데이터를 비동기로 만들어 자바와 주고 받으려고,
@@ -20,6 +21,16 @@ export const findArticleById: any = createAsyncThunk(
     'articles/findArticleById',                      
     async (id: number) => (await findArticleByIdAPI(id))
     //return 생략
+)
+
+export const findModify: any = createAsyncThunk( 
+    'articles/findModify',                      
+    async (article: IArticles) => {
+        console.log('findModify : ' + article)
+        const data: any = await findModifyAPI(article); 
+
+        return data
+    }
 )
 
 export const findDeleteById: any = createAsyncThunk( 

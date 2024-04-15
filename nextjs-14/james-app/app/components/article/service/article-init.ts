@@ -8,6 +8,7 @@ export const initialState: IArticles = {
     writerId: 0,
     boardId: 0,
     count: 0,
+    message: "",
     regDate: "",
     modDate: "",
     array: [],

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initialState } from "./user-init";
-import { findAllUsers, findCount, findDeleteById, findModify, findUserById } from "./user-service";
+import { findAllUsers, findCount, findDeleteById, findLogin, findModify, findUserById } from "./user-service";
 
 const userThunks = [findAllUsers]
 
@@ -20,16 +20,21 @@ export const userSlice = createSlice({
     reducers: {
         passwordHandler: (state:any, {payload}) => {state.json.password = payload},
         phoneHandler: (state:any, {payload}) => {state.json.phone = payload},
-        jobHandler: (state:any, {payload}) => {state.json.job = payload}
+        jobHandler: (state:any, {payload}) => {state.json.job = payload},
+        // setUsername : (state:any, {payload}) => {state.json.username = payload},
+        // setPassword : (state:any, {payload}) => {state.json.password = payload}
+       
     },
     extraReducers:builder =>{
         const {pending, rejected} = status;
 
-        builder.addCase(findAllUsers.fulfilled, (state:any, {payload}:any) => {state.array = payload})
-        builder.addCase(findUserById.fulfilled, (state:any, {payload}:any) => {state.json = payload})
-        builder.addCase(findModify.fulfilled, (state:any, {payload}:any) => {state.array = payload})
-        builder.addCase(findDeleteById.fulfilled, (state:any, {payload}:any) => {state.json = payload})
-        builder.addCase(findCount.fulfilled, (state:any, {payload}:any) => {state.count = payload})
+        builder
+        .addCase(findAllUsers.fulfilled, (state:any, {payload}:any) => {state.array = payload})
+        .addCase(findUserById.fulfilled, (state:any, {payload}:any) => {state.json = payload})
+        .addCase(findModify.fulfilled, (state:any, {payload}:any) => {state.array = payload})
+        .addCase(findDeleteById.fulfilled, (state:any, {payload}:any) => {state.json = payload})
+        .addCase(findCount.fulfilled, (state:any, {payload}:any) => {state.count = payload})
+        .addCase(findLogin.fulfilled, (state:any, {payload}:any) => {state.message = payload})
     }
 })
 
@@ -38,38 +43,11 @@ export const getAllUsers = (state:any) => {
     console.log(JSON.stringify(state.user.array))
     return state.user.array;
 }
-
-export const getUserById = (state: any) => {
-    console.log('---------------- Before useSelector ----------------')
-    console.log(JSON.stringify(state.user.json))
-    console.log("값 불러오기")
-    return state.user.json; 
-
-}
-
-export const getModify = (state: any) => {
-    console.log('---------------- Before useSelector ----------------')
-    console.log(JSON.stringify(state.user.array))
-    console.log("값 불러오기")
-    return state.user.array; 
-
-}
-
-export const getDeleteById = (state: any) => {
-    console.log('---------------- Before useSelector ----------------')
-    console.log(JSON.stringify(state.user.json))
-    console.log("값 불러오기")
-    return state.user.json; 
-
-}
-
-export const getCount = (state: any) => {
-    console.log('---------------- Before useSelector ----------------')
-    console.log(JSON.stringify(state.user.count))
-    console.log("값 불러오기")
-    return state.user.count; 
-
-}
+export const getUserById = (state: any) => (state.user.json)
+export const getModify = (state: any) => (state.user.array)
+export const getDeleteById = (state: any) => (state.user.json)
+export const getCount = (state: any) => (state.user.count)
+export const getLogin = (state: any) => (state.user.message)
 
 export const {passwordHandler, phoneHandler, jobHandler } = userSlice.actions
 

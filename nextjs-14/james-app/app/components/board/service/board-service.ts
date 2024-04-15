@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { findAllBoardsAPI, findBoardByIdAPI, findCountAPI, findDeleteByIdAPI } from "./board-api";
+import { findAllBoardsAPI, findBoardByIdAPI, findCountAPI, findDeleteByIdAPI, findModifyAPI } from "./board-api";
+import { IBoards } from "../model/board";
 
 export const findAllBoards: any = createAsyncThunk( // 데이터를 비동기로 만들어 자바와 주고 받으려고,
     'boards/findAllBoards',                        // createAsyncThunk가 없으면 동기로 보내는 것
@@ -23,9 +24,20 @@ export const findBoardById: any = createAsyncThunk(
         return data
     }
 )
+
+export const findModify: any = createAsyncThunk( 
+    'boards/findModify',                      
+    async (board: IBoards) => {
+        console.log('findModify : ' + board)
+        const data: any = await findModifyAPI(board); 
+
+       
+        return data
+    }
+)
 export const findDeleteById: any = createAsyncThunk( 
-    'boards/findArticleById',                      
-    async (id: number) => (await findDeleteByIdAPI(id))
+    'boards/findDeleteById',                      
+    async (id: IBoards) => (await findDeleteByIdAPI(id))
 )
 export const findCount: any = createAsyncThunk( 
     'boards/findCount',                      

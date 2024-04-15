@@ -1,5 +1,4 @@
 export interface UserColumn{
-    [x: string]: any;
     id?: string;
     username?: string;
     password?: string;

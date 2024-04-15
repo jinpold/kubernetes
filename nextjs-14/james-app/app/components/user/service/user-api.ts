@@ -51,13 +51,21 @@ export const findDeleteByIdAPI = async (deleteId: IUsers) => {
     }
     
 }
-
 export const findCountAPI = async () => {
     try{
         const response = await instance.get('/users/count',{
             params: {}
         })
         return response.data
+    }catch(error){
+        console.log(error)
+        return error
+    }
+}
+export const findLoginAPI = async (user : IUsers) => {
+    try{
+        const response = await instance.post('/users/login',user)
+        return response.data.message
     }catch(error){
         console.log(error)
         return error

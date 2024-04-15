@@ -1,4 +1,5 @@
 package com.james.api.board;
+import com.james.api.user.model.UserDto;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
@@ -45,8 +46,13 @@ public class BoardController {
         log.info("입력받은 정보 : {}", id );
         return ResponseEntity.ok(service.findById(id).orElseGet(BoardDto::new));
     }
-    @DeleteMapping("/delete")
-    public ResponseEntity<Messenger> deleteById(@RequestParam Long id) {
+    @PutMapping ("/modify")
+    public ResponseEntity<Messenger> modify(@RequestBody BoardDto dto) {
+        log.info("입력받은 정보 : {}", dto );
+        return ResponseEntity.ok(service.modify(dto));
+    }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Messenger> deleteById(@PathVariable Long id) {
         log.info("입력받은 정보 : {}", id );
         return ResponseEntity.ok(service.deleteById(id));
     }

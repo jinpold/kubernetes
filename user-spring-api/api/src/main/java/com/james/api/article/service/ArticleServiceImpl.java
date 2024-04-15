@@ -2,6 +2,7 @@ package com.james.api.article.service;
 import com.james.api.article.model.ArticleDto;
 import com.james.api.article.repository.ArticleRepository;
 import com.james.api.common.component.Messenger;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.sql.SQLException;
@@ -26,9 +27,15 @@ public class ArticleServiceImpl implements ArticleService {
                 .message(repository.findById(id).isPresent() ? "SUCCESS" : "FAILURE")
                 .build();
     }
+    @Transactional
     @Override
-    public Messenger modify(ArticleDto articleDto) {
-        return null;
+    public Messenger modify(ArticleDto dto) {
+        repository.save(dtoToEntity(dto));
+        return Messenger.builder()
+                .message("성공")
+                .status(200)
+                .code("코드")
+                .build();
     }
     @Override
     public List<ArticleDto> findAll() throws SQLException {
@@ -42,7 +49,6 @@ public class ArticleServiceImpl implements ArticleService {
     public Long count() {
         return repository.count();
     }
-
     @Override
     public boolean existsById(Long id) {
         return repository.existsById(id);

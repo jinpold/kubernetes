@@ -1,6 +1,4 @@
 package com.james.api.article.model;
-import com.james.api.common.model.BaseEntity;
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

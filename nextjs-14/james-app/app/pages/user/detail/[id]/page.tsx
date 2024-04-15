@@ -44,7 +44,7 @@ export default function userDetailPage (props:any){
       <h3>게시판 상세</h3>
       <span>ID : </span><Typography textAlign="center" sx={{fontSize:"1.2rem"}}>{props.params.id}</Typography>
       <span>아이디 : </span><Typography textAlign="center" sx={{fontSize:"1.2rem"}}>{user.username}</Typography>
-      <span>비밀번호 : </span><input type="password" placeholder={user.password} name="password" onChange={handleClickPw} /><br /><br />
+      <span>비밀번호 : </span><input type="text" placeholder={user.password} name="password" onChange={handleClickPw} /><br /><br />
       <span>이름 : </span><Typography textAlign="center" sx={{fontSize:"1.2rem"}}>{user.name}</Typography>
       <span>전화번호 : </span><input type="text" placeholder={user.phone} name="phone" onChange={handleClickPh} /><br /><br />
       <span>직업 : </span> <input type="text" placeholder={user.job} name="job" onChange={handleClickJob} /><br /><br />

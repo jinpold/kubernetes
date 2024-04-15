@@ -10,6 +10,7 @@ import lombok.*;
 @ToString(exclude = {"id"})
 @Entity(name = "articles")
 @AllArgsConstructor
+@Builder
 
 public class Article extends BaseEntity {
     @Id
@@ -19,8 +20,6 @@ public class Article extends BaseEntity {
     private String title;
     private String content;
 
-
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "writer_id")
     private User writer;
@@ -29,12 +28,10 @@ public class Article extends BaseEntity {
     @JoinColumn(name = "board_id")
     private Board board;
 
-    @Builder(builderMethodName = "builder")
-    public Article(Long id, String title, User writer, String content) {
-        this.id = id;
-        this.title = title;
-        this.writer = writer;
-        this.content = content;
-
-    }
+//    public static Article of(String title, String content){
+//        Article article = new Article();;
+//        article.title = title;
+//        article.content = content;
+//        return article;
+//    }
 }

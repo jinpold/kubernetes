@@ -44,12 +44,16 @@ public class ArticleController {
         log.info("입력받은 정보 : {}", id );
         return ResponseEntity.ok(service.findById(id).orElseGet(ArticleDto::new));
     }
+    @PutMapping ("/modify")
+    public ResponseEntity<Messenger> modify(@RequestBody ArticleDto dto) {
+        log.info("입력받은 정보 : {}", dto );
+        return ResponseEntity.ok(service.modify(dto));
+    }
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Messenger> deleteById(@PathVariable Long id) {
         log.info("입력받은 정보 : {}", id );
         return ResponseEntity.ok(service.deleteById(id));
     }
-
     @GetMapping("/count")
     public ResponseEntity<Long> count()  {
         return ResponseEntity.ok(service.count());

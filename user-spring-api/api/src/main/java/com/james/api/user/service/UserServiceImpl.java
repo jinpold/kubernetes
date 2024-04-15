@@ -33,7 +33,6 @@ public class UserServiceImpl implements UserService {
     public Optional<UserDto> findById(Long id) {
         return repository.findById(id).stream().map(i -> entityToDto(i)).findAny();
     }
-
     @Transactional
     @Override
     public Messenger modify(UserDto userDto) {
@@ -44,7 +43,6 @@ public class UserServiceImpl implements UserService {
                 .code("코드")
                 .build();
     }
-
     //    @Override
 //    public Optional<UserDto> modify(UserDto userDto) {
 //        Optional<User> user = repository.findById(userDto.getId());
@@ -82,6 +80,27 @@ public class UserServiceImpl implements UserService {
 //                .build();
 //                }
 
+    // SRP에 따라 아이디 존재여부를 프론트에서 먼저 판단하고, 넘어옴 (시큐리티)
+    @Override
+    public Messenger login(UserDto dto) {
+        return Messenger.builder()
+                .message(findUserByUsername(dto.getUsername())
+                        .get()//무조건 아이디가 있는걸로 처리 (공부용)
+                        .getPassword()
+                        .equals(dto.getPassword()) ? "SUCCESS" : "FAILURE")
+                .build();
+    }
+    //    @Override
+//    public Messenger login(UserDto dto) {
+//        return Messenger.builder()
+//                .message(findUserByUsername(dto.getUsername())
+//                        .stream()
+//                        .filter(i -> i.getPassword().equals(dto.getPassword()))
+//                        .map(i -> "SUCCESS")
+//                        .findAny()
+//                        .orElseGet(()-> "FAILURE")).build();
+//    }
+
     @Override
     public List<UserDto> findUsersByJob(String job) {
         return null;
@@ -91,12 +110,6 @@ public class UserServiceImpl implements UserService {
     public List<UserDto> findUsersByName(String name) {
         return null;
     }
-
-    @Override
-    public Messenger login(UserDto param) {
-        return null;
-    }
-
     @Override
     public Optional<UserDto> findUserByUsername(String username) {
         User user = repository.findByUsername(username);

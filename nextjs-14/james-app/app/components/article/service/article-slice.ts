@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initialState } from "./article-init";
-import { findAllArticles, findArticleById, findCount, findDeleteById } from "./article-service";
+import { findAllArticles, findArticleById, findCount, findDeleteById, findModify } from "./article-service";
 
 const articleThunks = [findAllArticles]
 
@@ -26,7 +26,10 @@ const handleRejected = (state:any) => {
 export const articleSlice = createSlice({   // 슬라이스의 이름 = articles, 슬라이스의 키  = article (리듀서에 있음)
     name: "articles",
     initialState,
-    reducers: {}, // reducers 내부 
+    reducers: {
+        titleHandler: (state:any, {payload}) => {state.json.title = payload},
+        contentHandler: (state:any, {payload}) => {state.json.content= payload}
+    }, // reducers 내부 
     extraReducers:builder =>{ // extraReducers 외부
         const {pending, rejected} = status;
 
@@ -39,7 +42,8 @@ export const articleSlice = createSlice({   // 슬라이스의 이름 = articles
     // state.array가 저장소에서 온 상태 구조이고, 50번 state.article.array 상태구조를 밖으로 내보내는 것이다.
     //addCase = swich문이 떠올리면됨.
         .addCase(findDeleteById.fulfilled, (state:any, {payload}:any)=>{state.json = payload}) 
-        .addCase(findCount.fulfilled, (state:any, {payload}:any)=>{state.count = payload}) 
+        .addCase(findCount.fulfilled, (state:any, {payload}:any)=>{state.count = payload})
+        .addCase(findModify.fulfilled, (state:any, {payload}:any) => {state.array = payload}) 
     }
 
 })
@@ -60,6 +64,13 @@ export const getArticleById = (state: any) => {
 // 47~51 리턴 생략하면 
 // export const getArticleById = (state: any) => (state.article.json)으로 가능
 
+export const getModify = (state: any) => {
+    console.log('---------------- Before useSelector ----------------')
+    console.log(JSON.stringify(state.article.array))
+    console.log("값 불러오기")
+    return state.article.array; 
+}
+
 export const getDeleteById = (state: any) => {
     console.log('---------------- Before useSelector ----------------')
     console.log(JSON.stringify(state.article.json))
@@ -75,6 +86,6 @@ export const getCount = (state: any) => {
     return state.article.count; 
 
 }
-export const {} = articleSlice.actions
+export const {titleHandler, contentHandler} = articleSlice.actions
 
 export default articleSlice.reducer; // 여러개의 리듀서를 합치는 문법 (마지막은 리턴값은 단수형)

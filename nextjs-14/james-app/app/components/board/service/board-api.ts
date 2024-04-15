@@ -1,4 +1,5 @@
 import { instance } from '@/app/components/common/configs/axios-config'
+import { IBoards } from '../model/board'
 
 export const findAllBoardsAPI = async (page: number) =>{     // axios = 동기식, 
     try{                                                        // axios를 thunk로 감싸면 비동기가 된다
@@ -22,10 +23,22 @@ export const findBoardByIdAPI = async (id: number) =>{
         return error
     }
 }
-export const findDeleteByIdAPI = async (id: number) =>{    
+
+export const findModifyAPI = async (board: IBoards) => {
+    try{
+        const response = (await instance.put('/boards/modify', board))
+            
+        return response.data
+    }catch(error){
+        console.log(error)
+        return error
+    }
+    
+}
+export const findDeleteByIdAPI = async (deleteId: IBoards) =>{    
     try{                                                        
         const response = await instance.delete('/boards/delete',{
-            params: {id}
+            params: {deleteId}
         })
         return response.data
     }catch(error){
