@@ -11,9 +11,7 @@ export const findAllUsersAPI = async (page: number) => {
         console.log(error)
         return error
     }
-    
 }
-
 export const findUserByIdAPI = async (id: number) => {
     try{
         const response = await instance.get('/users/detail',{
@@ -24,9 +22,7 @@ export const findUserByIdAPI = async (id: number) => {
         console.log(error)
         return error
     }
-    
 }
-
 export const findModifyAPI = async (user: IUsers) => {
     try{
         const response = (await instance.put('/users/modify', user))
@@ -36,9 +32,7 @@ export const findModifyAPI = async (user: IUsers) => {
         console.log(error)
         return error
     }
-    
 }
-
 export const findDeleteByIdAPI = async (deleteId: IUsers) => {
     try{
         const response = await instance.delete('/users/delete',{
@@ -49,7 +43,6 @@ export const findDeleteByIdAPI = async (deleteId: IUsers) => {
         console.log(error)
         return error
     }
-    
 }
 export const findCountAPI = async () => {
     try{
