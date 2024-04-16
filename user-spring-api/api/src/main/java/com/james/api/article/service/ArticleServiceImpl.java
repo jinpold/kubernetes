@@ -34,7 +34,6 @@ public class ArticleServiceImpl implements ArticleService {
         return Messenger.builder()
                 .message("성공")
                 .status(200)
-                .code("코드")
                 .build();
     }
     @Override

@@ -58,7 +58,8 @@ export const findCountAPI = async () => {
 export const findLoginAPI = async (user : IUsers) => {
     try{
         const response = await instance.post('/users/login',user)
-        return response.data.message
+        // 자바에서 가져오는 메신저 데이터를 담음
+        return response.data
     }catch(error){
         console.log(error)
         return error

@@ -1,6 +1,7 @@
 package com.james.api.user;
 import com.james.api.common.component.Messenger;
 import com.james.api.common.component.PageRequestVo;
+import com.james.api.user.model.User;
 import com.james.api.user.model.UserDto;
 import com.james.api.user.repository.UserRepository;
 import com.james.api.user.service.UserService;
@@ -70,14 +71,13 @@ public class UserController {
         service.existsById(0L);
         return ResponseEntity.ok(service.findById(id).orElseGet(UserDto::new));
     }
-
     @GetMapping("/count")
     public ResponseEntity<Long> count()  {
         return ResponseEntity.ok(service.count());
     }
 
     @PostMapping("/search")
-    public ResponseEntity<Optional<UserDto>> findUsersByName(@RequestBody UserDto param) {
+    public ResponseEntity<Optional<User>> findUsersByName(@RequestBody UserDto param) {
         //log.info("입력받은 정보 : {}", name );
         return ResponseEntity.ok(service.findUserByUsername(param.getName()));
     }
@@ -86,6 +86,4 @@ public class UserController {
         service.findUsersByJob(null);
         return ResponseEntity.ok(new Messenger());
     }
-
-
 }

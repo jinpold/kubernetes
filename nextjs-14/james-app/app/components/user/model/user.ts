@@ -5,11 +5,9 @@ export interface IUsers {
     name?: string,
     phone?: string,
     job?: string,
-    count?: number,
-    message?:string,
-    regDate?: string;
-    modDate?: string;
-    array?:IUsers[],
-    json?:{}
+    regDate?: string,
+    modDate?: string,
+    count? : number
     
+   
 }

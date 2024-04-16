@@ -3,17 +3,18 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { PG } from "./components/common/enums/PG";
 import { useRouter } from "next/navigation";
-import { getLogin } from "./components/user/service/user-slice";
+import { getAuth } from "./components/user/service/user-slice";
 import { useDispatch, useSelector } from "react-redux";
 import { findLogin } from "./components/user/service/user-service";
 import { IUsers } from "./components/user/model/user";
+import { parseCookies, destroyCookie, setCookie} from 'nookies';
 
 
 export default function Home(){
   const router = useRouter();
 
   const dispatch = useDispatch()
-  const message:string = useSelector(getLogin)
+  const auth = useSelector(getAuth)
 
   const [user, setUser] = useState({} as IUsers)
   
@@ -23,19 +24,23 @@ export default function Home(){
   const handleSubmit = () => {
       dispatch(findLogin(user))
       console.log('user...'+JSON.stringify(user))
-      router.push(`${PG.USER}/list`)
+      router.push(`${PG.BOARD}/list`)
   }
   useEffect(()=>{
-    if(message==='SUCCESS'){
+    if(auth.message==='SUCCESS'){
+      setCookie({},'message',auth.message, { httpOnly: false, path: '/' })
+      setCookie({},'token',auth.token, { httpOnly: false, path: '/' })
+      console.log('서버에서 넘어온 메시지' + parseCookies().message)
+      console.log('서버에서 넘어온 토큰' + parseCookies().token)
       router.push(`${PG.BOARD}/list`)
+      
     } else {
       console.log('LOGIN FAIL')
     }
-  },[message])
+  },[auth])
 
-  return (
-   <div className="flex items-center justify-center h-[80vh] w-full px-5 sm:px-0">
-   <div className="flex bg-white rounded-lg shadow-lg border overflow-hidden max-w-sm lg:max-w-4xl w-full">
+  return(<><div className="h-[70vh] flex items-center justify-center">
+  <div className="flex bg-white rounded-lg shadow-lg border overflow-hidden max-w-sm lg:max-w-4xl w-full">
     <div
       className="hidden md:block lg:w-1/2 bg-cover bg-blue-700"
       style={{
@@ -74,8 +79,10 @@ export default function Home(){
         </a>
       </div>
       <div className="mt-8">
-        <button className="bg-blue-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-blue-600" onClick={handleSubmit}>
-          Login 
+        <button 
+        onClick={handleSubmit}
+        className="bg-blue-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-blue-600">
+          Login
         </button>
       </div>
       <a
@@ -120,7 +127,7 @@ export default function Home(){
         </Link>
       </div>
     </div>
-   </div>
   </div>
-  );
+</div></>
+   );
 }

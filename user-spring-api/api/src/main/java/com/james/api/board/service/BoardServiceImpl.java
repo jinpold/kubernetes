@@ -23,7 +23,6 @@ public class BoardServiceImpl implements BoardService{
         return Messenger.builder()
                 .message("성공")
                 .status(200)
-                .code("코드")
                 .build();
     }
     @Override
@@ -42,7 +41,6 @@ public class BoardServiceImpl implements BoardService{
         return Messenger.builder()
                 .message("성공")
                 .status(200)
-                .code("코드")
                 .build();
     }
     @Override
@@ -52,12 +50,10 @@ public class BoardServiceImpl implements BoardService{
                 Messenger.builder()
                         .message("회원탈퇴 완료")
                         .status(200)
-                        .code("")
                         .build() :
                 Messenger.builder()
                         .message("회원탈퇴 실패")
                         .status(200)
-                        .code("")
                         .build();
     }
 

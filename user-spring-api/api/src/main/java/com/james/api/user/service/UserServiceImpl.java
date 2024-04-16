@@ -1,21 +1,26 @@
 package com.james.api.user.service;
+import com.james.api.common.component.JwtProvider;
 import com.james.api.common.component.Messenger;
 import com.james.api.user.model.User;
 import com.james.api.user.model.UserDto;
 import com.james.api.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+
+@Log4j2
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepository repository;
+    private final JwtProvider jwtProvider;
 
     @Override
     public Messenger save(UserDto t) {
@@ -40,7 +45,6 @@ public class UserServiceImpl implements UserService {
         return Messenger.builder()
                 .message("성공")
                 .status(200)
-                .code("코드")
                 .build();
     }
     //    @Override
@@ -83,11 +87,12 @@ public class UserServiceImpl implements UserService {
     // SRP에 따라 아이디 존재여부를 프론트에서 먼저 판단하고, 넘어옴 (시큐리티)
     @Override
     public Messenger login(UserDto dto) {
+        boolean flag = repository.findUserByUsername
+                (dto.getUsername()).get().getPassword().equals(dto.getPassword());
+
         return Messenger.builder()
-                .message(findUserByUsername(dto.getUsername())
-                        .get()//무조건 아이디가 있는걸로 처리 (공부용)
-                        .getPassword()
-                        .equals(dto.getPassword()) ? "SUCCESS" : "FAILURE")
+                .message(flag ? "SUCCESS" : "FAILURE")
+                .token(flag ? jwtProvider.createToken(dto) : "NONE")
                 .build();
     }
     //    @Override
@@ -111,8 +116,9 @@ public class UserServiceImpl implements UserService {
         return null;
     }
     @Override
-    public Optional<UserDto> findUserByUsername(String username) {
-        User user = repository.findByUsername(username);
-        return Optional.of(entityToDto(user));
+    public Optional<User> findUserByUsername(String username) {
+        return repository.findUserByUsername(username);
+//        User user = repository.findByUsername(username);
+//        return Optional.of(entityToDto(user));
     }
 }
